@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -102,6 +103,70 @@ namespace DAN_XXXIII_MilosPeric
             {
                 Console.WriteLine("Can't read from {0} file or file doesn't exist.", fileByThreadTwoTwoName);
                 Console.WriteLine(e.Message);
+            }
+        }
+
+        public static void ThreadCreateAndStart()
+        {
+            for (int i = 1; i <= 4; i++)
+            {
+                Thread t = new Thread(new ParameterizedThreadStart(DoWork));
+                if (i % 2 == 0)
+                {
+                    t.Name = string.Format("Thread_{0}{0}", i);
+                }
+                else
+                {
+                    t.Name = string.Format("Thread_{0}", i);
+                }
+                Console.WriteLine(t.Name + " created.");
+                ThreadExecution(t);
+            }
+        }
+
+        public static void ThreadExecution(Thread t)
+        {
+            if (t.Name == "Thread_1")
+            {
+                stwch.Start();
+                t.Start(1);
+            }
+            else if (t.Name == "Thread_22")
+            {
+                t.Start(2);
+                t.Join();
+                Console.WriteLine("Total time elapsed by both threads: " + stwch.Elapsed.TotalSeconds);
+                Console.WriteLine("First two threads finished, starting thread three and four");
+            }
+            else if (t.Name == "Thread_3")
+            {
+                t.Start(3);
+
+            }
+            else if (t.Name == "Thread_44")
+            {
+                t.Start(4);
+            }
+        }
+
+        public static void DoWork(Object obj)
+        {
+            int taskNumber = (int)obj;
+            if (taskNumber == 1)
+            {
+                WriteToFileThreadOne();
+            }
+            if (taskNumber == 2)
+            {
+                WriteToFileThreadTwoTwo();
+            }
+            if (taskNumber == 3)
+            {
+                ReadFileMatrix();
+            }
+            if (taskNumber == 4)
+            {
+                ReadFileRandomNumbers();
             }
         }
 

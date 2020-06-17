@@ -10,6 +10,8 @@ namespace DAN_XXXIII_MilosPeric
     {
         static void Main(string[] args)
         {
+            ThreadFactory.ThreadCreateAndStart();
+            Console.ReadKey();
         }
     }
 }
