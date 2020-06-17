@@ -169,7 +169,5 @@ namespace DAN_XXXIII_MilosPeric
                 ReadFileRandomNumbers();
             }
         }
-
-
     }
 }
